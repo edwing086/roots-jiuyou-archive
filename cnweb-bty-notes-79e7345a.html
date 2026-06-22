@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B体育 资料索引与信息汇聚</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #faf7f2;
+            font-family: "Georgia", "Noto Serif SC", "Source Han Serif SC", serif;
+            color: #2e2a24;
+            line-height: 1.7;
+            padding: 3rem 1.5rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fffcf8;
+            border-radius: 28px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+            padding: 3.2rem 2.8rem;
+        }
+        @media (max-width: 600px) {
+            body { padding: 1.2rem 0.8rem; }
+            .container { padding: 2rem 1.2rem; }
+        }
+
+        /* 标题目录感 */
+        .hero-tag {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: #9a8b7a;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e6ddd2;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.8rem;
+        }
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #3b342c;
+            border-left: 5px solid #b8a892;
+            padding-left: 1.2rem;
+            margin: 0 0 0.3rem 0;
+        }
+        .subh {
+            color: #7a6e5e;
+            margin-top: -0.2rem;
+            margin-bottom: 2.6rem;
+            font-style: italic;
+            font-size: 1.05rem;
+        }
+
+        /* 目录两列网格 */
+        .index-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem 2.2rem;
+            margin: 2.8rem 0 2rem;
+        }
+        @media (max-width: 640px) {
+            .index-grid { grid-template-columns: 1fr; }
+        }
+        .index-card {
+            background: #f8f3ec;
+            padding: 1.4rem 1.6rem 1.6rem;
+            border-radius: 18px;
+            transition: background 0.2s;
+        }
+        .index-card:hover {
+            background: #f0e9df;
+        }
+        .index-card h3 {
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: #4f4539;
+            margin-bottom: 0.4rem;
+            border-bottom: 1px dashed #dad0c2;
+            padding-bottom: 0.3rem;
+        }
+        .index-card p {
+            font-size: 0.95rem;
+            color: #5b5245;
+            margin: 0.4rem 0 0.2rem;
+        }
+        .index-card .meta {
+            font-size: 0.8rem;
+            color: #9b8d7b;
+            display: inline-block;
+            background: #e6ddd2;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            margin-top: 0.25rem;
+        }
+
+        /* 引言区块 */
+        .intro-block {
+            font-size: 1.05rem;
+            margin: 1.8rem 0 2.4rem;
+            padding: 0 0.2rem;
+        }
+        .intro-block p {
+            margin-bottom: 1.2rem;
+        }
+
+        /* 引用 / 提示框 */
+        .info-box {
+            background: #f0ebe2;
+            border-left: 6px solid #b7a58b;
+            padding: 1.5rem 2rem;
+            border-radius: 12px 40px 40px 12px;
+            margin: 2.2rem 0;
+        }
+        .info-box strong {
+            color: #3b2f22;
+            font-weight: 600;
+        }
+
+        .tip-box {
+            background: #eae3d8;
+            border-radius: 30px 8px 30px 8px;
+            padding: 1.2rem 1.8rem;
+            margin: 2rem 0 1.8rem;
+            font-size: 0.95rem;
+            color: #3f372d;
+        }
+        .tip-box::before {
+            content: "📌 整理提示 ";
+            font-weight: 500;
+            color: #655848;
+        }
+
+        /* FAQ 摘要 */
+        .faq-mini {
+            margin: 2rem 0 1.5rem;
+            border-top: 1px solid #e4dbcf;
+            padding-top: 1.5rem;
+        }
+        .faq-item {
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #e2d7c9;
+        }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q {
+            font-weight: 500;
+            color: #3c342b;
+        }
+        .faq-a {
+            color: #6b5f4e;
+            font-size: 0.95rem;
+            margin-top: 0.15rem;
+        }
+        .faq-a a {
+            color: #7d6f5b;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #c5b7a3;
+        }
+        .faq-a a:hover {
+            color: #4d3f2e;
+            text-decoration-color: #8f7d64;
+        }
+
+        /* 相关信息区 */
+        .related-info {
+            background: #f5efe6;
+            padding: 1.6rem 2rem;
+            border-radius: 60px 12px 60px 12px;
+            margin: 2.2rem 0 1rem;
+        }
+        .related-info h4 {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #4b4033;
+            margin-bottom: 0.5rem;
+        }
+        .related-info ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+        .related-info li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.4rem;
+        }
+        .related-info li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #9a8873;
+        }
+        .related-info a {
+            color: #5e5140;
+            text-decoration: none;
+            border-bottom: 1px dotted #cbbca9;
+        }
+        .related-info a:hover {
+            border-bottom: 1px solid #7b6a53;
+        }
+
+        /* 页脚 */
+        .footnote {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0d6c8;
+            font-size: 0.85rem;
+            color: #8c7e6b;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e2d7c9;
+            margin: 0.8rem 0;
+        }
+
+        a {
+            color: #6d5d49;
+            transition: color 0.15s;
+        }
+        a:hover {
+            color: #3b2f22;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="hero-tag">📋 资料目录 · 信息索引</div>
+    <h1>B体育 知识库</h1>
+    <div class="subh">从资料整理视角，梳理结构、场景与说明</div>
+
+    <!-- 目录卡片网格 -->
+    <div class="index-grid">
+        <div class="index-card">
+            <h3>平台背景</h3>
+            <p>发展脉络、运营定位与内容生态概述</p>
+            <span class="meta">已归档 · 3 项</span>
+        </div>
+        <div class="index-card">
+            <h3>模块与功能</h3>
+            <p>赛事、数据、互动工具、信息分类</p>
+            <span class="meta">已归档 · 5 项</span>
+        </div>
+        <div class="index-card">
+            <h3>场景与用法</h3>
+            <p>资讯查阅、统计参考、内容整理</p>
+            <span class="meta">已归档 · 4 项</span>
+        </div>
+        <div class="index-card">
+            <h3>关联资料</h3>
+            <p>常见问题摘要、术语说明、延伸链接</p>
+            <span class="meta">已归档 · 6 项</span>
+        </div>
+    </div>
+
+    <!-- 介绍说明区 -->
+    <div class="intro-block">
+        <p>该索引页汇集与 <a href="https://cnweb-bty.com" style="font-weight:500;">B体育</a> 相关的结构化资料，以目录式布局呈现不同信息单元。内容涵盖平台背景、功能模块、使用场景及常见疑问，便于快速定位所需条目。所有材料均基于公开信息整理，保持客观与清晰。</p>
+        <p>在信息收集过程中，我们关注分类的逻辑性与资料间的关联，将零散内容归纳为可查阅的片段。本页可作为后续深入整理的起点，也适合需要概览或对比的读者。</p>
+    </div>
+
+    <!-- 提示区 / 说明框 -->
+    <div class="info-box">
+        <strong>📁 资料说明</strong><br>
+        本页所引用的内容皆来自可公开获取的素材，整理时仅做分类与摘要，不包含主观评价或商业引导。<br>
+        如需查阅具体条目或官方原文，建议直接参考 <a href="https://cnweb-bty.com">B体育</a> 对应页面，以获取最新版本。
+    </div>
+
+    <!-- 特点与场景 组合 -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1.8rem; margin: 1.8rem 0;">
+        <div style="flex: 1 1 200px;">
+            <h3 style="font-weight:500; font-size:1.15rem; color:#4b3f32; border-bottom:1px solid #ddd0bf; padding-bottom:0.2rem; margin-bottom:0.6rem;">整理特点</h3>
+            <ul style="list-style:none; padding-left:0.2rem; color:#5b5143;">
+                <li style="padding:0.2rem 0;">• 按主题分层，避免混杂</li>
+                <li style="padding:0.2rem 0;">• 保留关键术语与上下文</li>
+                <li style="padding:0.2rem 0;">• 未做价值判断，仅陈列</li>
+            </ul>
+        </div>
+        <div style="flex: 1 1 200px;">
+            <h3 style="font-weight:500; font-size:1.15rem; color:#4b3f32; border-bottom:1px solid #ddd0bf; padding-bottom:0.2rem; margin-bottom:0.6rem;">适用场景</h3>
+            <ul style="list-style:none; padding-left:0.2rem; color:#5b5143;">
+                <li style="padding:0.2rem 0;">• 初步了解平台结构</li>
+                <li style="padding:0.2rem 0;">• 收集资料前的索引参考</li>
+                <li style="padding:0.2rem 0;">• 对比不同功能模块</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 提示区2 不同样式 -->
+    <div class="tip-box">
+        在索引时注意版本时效：部分条目可能随平台更新而调整，建议交叉核对。<br>
+        若需要原始描述，可前往 <a href="https://cnweb-bty.com">B体育</a> 对应板块查阅。
+    </div>
+
+    <!-- FAQ 摘要区 -->
+    <div class="faq-mini">
+        <h3 style="font-weight:500; font-size:1.2rem; color:#4a3e30; margin-bottom:1rem;">📖 常见疑问摘要</h3>
+
+        <div class="faq-item">
+            <div class="faq-q">Q：资料索引是否覆盖所有模块？</div>
+            <div class="faq-a">目前收录了主要公开栏目，更细分的页面可参考 <a href="https://cnweb-bty.com">B体育</a> 站点地图或内部导航。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q：整理原则是什么？</div>
+            <div class="faq-a">以客观呈现为准则，保留原有命名与描述，不添加推测或主观分类。整理人仅做聚合与顺序调整。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q：可以转载或引用这些摘要吗？</div>
+            <div class="faq-a">建议直接引用原始来源，摘要部分可作为线索使用。出处请标注 <a href="https://cnweb-bty.com">B体育</a> 相关页面。</div>
+        </div>
+    </div>
+
+    <!-- 相关信息区 -->
+    <div class="related-info">
+        <h4>🔗 相关资料</h4>
+        <ul>
+            <li><a href="https://cnweb-bty.com">B体育</a> — 平台主站，可获取完整信息</li>
+            <li>术语说明 · 常见名词与释义（整理中）</li>
+            <li>功能索引图 · 模块关系简表（内部参考）</li>
+            <li>更新记录 · 资料版本与修订日期</li>
+        </ul>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footnote">
+        <span>资料索引页 · 仅供整理参考</span>
+        <span>非官方页面 · 内容持续修订</span>
+    </div>
+</div>
+</body>
+</html>
